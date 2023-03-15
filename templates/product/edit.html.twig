@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>CPPB Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{{asset('vendors/feather/feather.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/ti-icons/css/themify-icons.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{{asset('vendors/select2/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendors/select2-bootstrap-theme/select2-bootstrap.min.css')}}">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
+  <style>
+       .alert{
+         padding: 10px;
+         color: white;
+         text-align:center;
+       }
+       .alert-success{
+        background: green;
+       }
+       .alert-info{
+        background:red;
+       }
+  </style>
+</head>
+
+<body>
+  
+
+
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+      <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="ti-settings"></i></div>
+        
+      </div>
+      <!-- partial -->
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Produits</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{path('app_product_all')}}">Vos produits</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{path('app_product_ajouter')}}">Nouveau Produit</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('app_logout')}}">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title btn btn-primary">Déconnexion</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">        
+        <div class="content-wrapper">
+          <div class="row">   
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    {% for type, messages in app.flashes %}
+                       {% for message in messages %}
+                       <div class="alert alert-{{type}}">
+                        {{ message }}
+                       </div>
+                      {% endfor %}
+                   {% endfor %}
+                     <h4 class="card-title">Modification de {{product.name}}</h4>
+                     <strong></strong>
+                  
+                  {{form_start(form,{'attr':{'class':'forms-sample'}})}}
+
+                    <div class="form-group">
+                      <label>Image du produit</label>
+                       {{form_widget(form.imageFile,{'attr':{'class': 'form-control'}})}}
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputName1">Nom du produit</label>
+                      {{form_widget(form.name,{'attr':{'class': 'form-control'}})}}
+                    </div>
+                    <div class="form-group">
+                     <label for="exampleInputEmail3">Prix du produit</label>
+                     {{form_widget(form.price,{'attr':{'class': 'form-control'}})}}
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">Description du produit</label>
+                      {{form_widget(form.description,{'attr':{'class': 'form-control', 'rows':'4'}})}}
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
+                  {{form_end(form)}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{{asset('vendors/typeahead.js/typeahead.bundle.min.js')}}"></script>
+  <script src="{{asset('vendors/select2/select2.min.js')}}"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{{asset('js/off-canvas.js')}}"></script>
+  <script src="{{asset('js/hoverable-collapse.js')}}"></script>
+  <script src="{{asset('js/template.js')}}"></script>
+  <script src="{{asset('js/settings.js')}}"></script>
+  <script src="{{asset('js/todolist.js')}}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{asset('js/file-upload.js')}}"></script>
+  <script src="{{asset('js/typeahead.js')}}"></script>
+  <script src="{{asset('js/select2.js')}}"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
+
